@@ -1,0 +1,44 @@
+application {
+  config {
+    baseName preventiveformapp,
+    applicationType monolith,
+    packageName com.lroperod,
+    buildTool maven,
+    cacheProvider ehcache,
+    authenticationType jwt,
+    devDatabaseType postgresql,
+    prodDatabaseType postgresql,
+    clientFramework angular12,
+    clientPackageManager npm,
+    clientTheme Cosmo,
+    dtoSuffix DTO,
+    enableHibernateCache true,
+    jhiPrefix pfa,
+    serverPort 8123
+  }
+  entities *
+}
+
+entity Form {
+	formName String required
+    description String
+
+}
+
+entity Questions {
+	questionCode String 
+    questionText String
+    questionType String
+}
+
+relationship OneToMany {
+  Form to Questions
+}
+
+relationship ManyToOne {
+	Form to Questions // FIXME: MAl
+}
+
+relationship ManyToMany {
+	Form to Questions // MAL.
+}
