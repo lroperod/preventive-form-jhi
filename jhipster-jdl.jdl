@@ -1,0 +1,76 @@
+application {
+    config{
+        baseName preventiveformapp
+        applicationType monolith
+        packageName com.lroperod
+        buildTool maven
+        cacheProvider ehcache
+        authenticationType jwt
+        devDatabaseType postgresql
+        prodDatabaseType postgresql
+        clientFramework angular12
+        clientPackageManager npm
+        clientTheme Cosmo
+        dtoSuffix DTO
+        enableHibernateCache true
+        jhiPrefix pfa
+        serverPort 8123
+    }
+    entities *
+}
+entity Form {
+    formName String required
+    description String
+}
+
+entity Questions {
+    questionCode String
+    questionText String
+    questionType QuestionType
+}
+
+enum OptionsType {
+    TEXT, NUMBER, DATE
+}
+
+entity QuestionOption {
+    questionOptionsCode String
+    questionOptionsText String
+}
+
+enum QuestionType{
+    TEXT, 
+    NUMBER, 
+    DATE,
+    UNIQUE_RESPONSE, 
+    MULTIPLE_RESPONSE
+}
+
+entity QuestionAnswer {
+    answerCode String
+    answerText String
+}
+
+entity FormAnswer {
+	formAnswerDate Date
+}
+
+relationship OneToMany {
+    Form to Questions
+    Form to FormAnswer
+    FormAnswer to QuestionAnswer
+    QuestionOption to Question
+}
+
+relationship ManyToOne {
+	Questions to QuestionOption
+}
+
+relationship ManyToMany {
+    QuestionAnswer to Options
+}
+
+relationship OneToOne {
+	FormAnswer{user} to User
+    Questions{question} to QuestionAnswer
+}
