@@ -8,7 +8,7 @@ application {
         authenticationType jwt
         devDatabaseType postgresql
         prodDatabaseType postgresql
-        clientFramework angular12
+        clientFramework angular
         clientPackageManager npm
         clientTheme Cosmo
         dtoSuffix DTO
@@ -27,10 +27,6 @@ entity Questions {
     questionCode String
     questionText String
     questionType QuestionType
-}
-
-enum OptionsType {
-    TEXT, NUMBER, DATE
 }
 
 entity QuestionOption {
@@ -52,22 +48,18 @@ entity QuestionAnswer {
 }
 
 entity FormAnswer {
-	formAnswerDate Date
+	formAnswerLocalDate LocalDate
 }
 
 relationship OneToMany {
     Form to Questions
     Form to FormAnswer
     FormAnswer to QuestionAnswer
-    QuestionOption to Question
+    QuestionOption to Questions
 }
 
 relationship ManyToOne {
 	Questions to QuestionOption
-}
-
-relationship ManyToMany {
-    QuestionAnswer to Options
 }
 
 relationship OneToOne {
