@@ -8,7 +8,7 @@ application {
         authenticationType jwt
         devDatabaseType postgresql
         prodDatabaseType postgresql
-        clientFramework angular
+        clientFramework angularX
         clientPackageManager npm
         clientTheme Cosmo
         dtoSuffix DTO
@@ -55,14 +55,14 @@ relationship OneToMany {
     Form to Questions
     Form to FormAnswer
     FormAnswer to QuestionAnswer
-    QuestionOption to Questions
 }
 
 relationship ManyToOne {
-	Questions to QuestionOption
+    QuestionOption{questions} to Questions
 }
+
 
 relationship OneToOne {
 	FormAnswer{user} to User
-    Questions{question} to QuestionAnswer
+    QuestionAnswer{answer} to Questions
 }
