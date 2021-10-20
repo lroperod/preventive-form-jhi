@@ -17,7 +17,11 @@ application {
         serverPort 8123
     }
     entities *
+    service * with serviceClass
+    dto * with mapstruct
+    paginate * with pagination
 }
+
 entity Form {
     formName String required
     description String
@@ -52,17 +56,16 @@ entity FormAnswer {
 }
 
 relationship OneToMany {
-    Form to Questions
-    Form to FormAnswer
+    Form to Questions{form(formName)}
+    Form to FormAnswer{form(formName)}
     FormAnswer to QuestionAnswer
+    Questions{questions} to QuestionOption{questions(questionText)}
 }
-
-relationship ManyToOne {
-    QuestionOption{questions} to Questions
-}
-
-
+ 
 relationship OneToOne {
-	FormAnswer{user} to User
-    QuestionAnswer{answer} to Questions
+    QuestionAnswer to Questions
+}
+
+relationship ManyToMany {
+    FormAnswer{user(login)} to User
 }
